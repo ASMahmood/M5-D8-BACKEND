@@ -1,6 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 const listEndpoints = require("express-list-endpoints");
+const {
+  notFoundHandler,
+  badRequestHandler,
+  genericErrorHandler,
+} = require("./errorHandlers");
 
 const attendeesRoutes = require("./attendees");
 
@@ -16,6 +21,10 @@ server.use(cors());
 server.use("/attendees", attendeesRoutes);
 
 // ERROR HANDLERS
+
+server.use(badRequestHandler);
+server.use(notFoundHandler);
+server.use(genericErrorHandler);
 
 console.log(listEndpoints(server));
 
