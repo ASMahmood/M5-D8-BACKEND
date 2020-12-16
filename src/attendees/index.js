@@ -23,16 +23,16 @@ attendeesRouter.post("/", async (req, res, next) => {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
     const msg = {
-      to: "ubeytdemir.dev@gmail.com",
+      to: req.body.Email,
       from: "thepoopatroopa@gmail.com",
-      subject: "You Suck!",
+      subject: "You're Great!",
       text: "and everybody knows it!",
       html: "<strong>and everybody knows it!</strong>",
     };
 
-    const res = await sgMail.send(msg);
+    await sgMail.send(msg);
 
-    console.log(res);
+    res.send("SENT");
   } catch (error) {
     console.log(error);
     res.status(500).send(error);
